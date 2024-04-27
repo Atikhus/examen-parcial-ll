@@ -1,0 +1,109 @@
+// luis miguel moreno potes
+package parciall;
+
+import javax.swing.JOptionPane;
+
+public class CentroComercial implements Getion {
+    private String nombreTienda;
+    private String tipoDeComercio;
+    private int descuento;
+    private double precio;
+
+
+    public CentroComercial() {
+        //sobrecarga
+    }
+
+    @Override
+    public void ingresarComercio() {
+        this.tipoDeComercio = JOptionPane.showInputDialog("Por favor ingrese el tipo de comercio");
+        this.nombreTienda = JOptionPane.showInputDialog("Por favor ingrese el nombre de la tienda");
+        String precioString = JOptionPane.showInputDialog("Ingrese el precio del producto");
+        this.precio = Double.parseDouble(precioString);
+    }
+
+    @Override
+    public double calcularDescuento() {
+        switch (tipoDeComercio) {
+            case "Ropa de niño":
+                JOptionPane.showMessageDialog(null, "Ropa de niño seleccionada");
+                descuento = 8; // 8% de descuento
+                break;
+            case "Dispositivos Electrónicos":
+                JOptionPane.showMessageDialog(null, "Dispositivos electrónicos seleccionados");
+                descuento = 4; // 4% de descuento
+                break;
+            default:
+                descuento = 0; // Sin descuento para otros tipos de comercio
+                break;
+        }
+        return precio - (precio * descuento / 100); // Calcula el precio final después del descuento
+    }
+
+    @Override
+    public void imprimirDetalleTiendas() {
+        StringBuilder mensaje = new StringBuilder();
+        mensaje.append("Nombre de la tienda: ").append(nombreTienda).append("\n");
+        mensaje.append("Tipo de comercio: ").append(tipoDeComercio).append("\n");
+        mensaje.append("Descuento aplicado a su compra: ").append(descuento).append("%\n");
+        mensaje.append("Precio final después del descuento: ").append(calcularDescuento());
+        JOptionPane.showMessageDialog(null, mensaje.toString());
+    }
+
+}
+-----------------------------------------------------------------------------------------------------------
+package parciall;
+
+import javax.swing.JOptionPane;
+
+public abstract class menuComercial implements Getion {
+    protected String nombreTienda;
+    protected String tipoDeComercio;
+    protected int descuento;
+    protected double precio;
+
+    // Métodos abstractos que deben ser implementados por las clases concretas
+    @Override
+    public abstract void ingresarComercio();
+    
+    @Override
+    public abstract double calcularDescuento();
+
+    @Override
+    public void imprimirDetalleTiendas() {
+        StringBuilder mensaje = new StringBuilder();
+        mensaje.append("Nombre de la tienda: ").append(nombreTienda).append("\n");
+        mensaje.append("Tipo de comercio: ").append(tipoDeComercio).append("\n");
+        mensaje.append("Descuento aplicado a su compra: ").append(descuento).append("%\n");
+        mensaje.append("Precio final después del descuento: ").append(calcularDescuento());
+        JOptionPane.showMessageDialog(null, mensaje.toString());
+    }
+
+}
+--------------------------------------------------------------------------------------------------------------
+package parciall;
+
+public interface Getion {
+    void ingresarComercio();
+    double calcularDescuento();
+    void imprimirDetalleTiendas();
+    
+} 
+    
+
+
+--------------------------------------------------------------------------------------------------------------
+
+package parciall;
+
+public class prueba {
+    public static void main(String[] args) {
+        CentroComercial centro = new CentroComercial();
+        centro.ingresarComercio();
+        centro.calcularDescuento();
+        centro.imprimirDetalleTiendas();
+        
+    }
+    
+}
+
